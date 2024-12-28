@@ -1,5 +1,11 @@
 package net.oktawia.crazyae2addons;
 
+import appeng.core.AppEng;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
@@ -21,6 +27,7 @@ import net.oktawia.crazyae2addons.items.RegistryItems;
 public class CrazyAddons
 {
     public static final String MODID = "crazy_addons";
+    public static final ResourceKey<CreativeModeTab> CREATIVE_TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(MODID, "crazy_ae_additions"));
 
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -32,7 +39,6 @@ public class CrazyAddons
         RegistryEntities.register(modEventBus);
         RegistryBlocks.register(modEventBus);
         RegistryItems.register(modEventBus);
-
         modEventBus.addListener(this::addCreative);
     }
 
