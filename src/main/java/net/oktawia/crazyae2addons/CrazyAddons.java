@@ -1,17 +1,19 @@
 package net.oktawia.crazyae2addons;
 
-import appeng.api.AECapabilities;
 import appeng.api.parts.RegisterPartCapabilitiesEvent;
-import appeng.core.AppEng;
+import appeng.api.util.AEColor;
+import appeng.client.render.StaticItemColor;
 import appeng.core.definitions.AEBlockEntities;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.util.FastColor;
 import net.neoforged.fml.ModLoader;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
+import net.oktawia.crazyae2addons.menus.RegistryMenus;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
@@ -29,13 +31,12 @@ import net.oktawia.crazyae2addons.entities.RegistryEntities;
 import net.oktawia.crazyae2addons.blocks.RegistryBlocks;
 import net.oktawia.crazyae2addons.items.RegistryItems;
 import appeng.api.parts.RegisterPartCapabilitiesEventInternal;
+import net.oktawia.crazyae2addons.screens.CraftingCancellerScreen;
 
 @Mod(CrazyAddons.MODID)
 public class CrazyAddons
 {
     public static final String MODID = "crazy_addons";
-    public static final ResourceKey<CreativeModeTab> CREATIVE_TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(MODID, "crazy_ae_additions"));
-
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public CrazyAddons(IEventBus modEventBus, ModContainer modContainer)
@@ -43,11 +44,19 @@ public class CrazyAddons
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
+        CACreativeTab.TAB.register(modEventBus);
         RegistryEntities.register(modEventBus);
         RegistryBlocks.register(modEventBus);
         RegistryItems.register(modEventBus);
+        RegistryMenus.register(modEventBus);
+        modEventBus.addListener(CrazyAddons::registerScreens);
         modEventBus.addListener(CrazyAddons::initCapabilities);
+        modEventBus.addListener(CrazyAddons::initItemColours);
         modEventBus.addListener(this::addCreative);
+    }
+
+    private static void registerScreens(RegisterMenuScreensEvent event){
+        event.register(RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new);
     }
 
     private static void initCapabilities(RegisterCapabilitiesEvent event) {
@@ -61,25 +70,33 @@ public class CrazyAddons
         RegisterPartCapabilitiesEventInternal.register(partEvent, event);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
+    private static void initItemColours(RegisterColorHandlersEvent.Item event){
+        event.register(makeOpaque(new StaticItemColor(AEColor.LIGHT_BLUE)), RegistryItems.RR_ITEM_P2P_TUNNEL.asItem());
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
+    private static ItemColor makeOpaque(ItemColor itemColor) {
+        return (stack, tintIndex) -> FastColor.ARGB32.opaque(itemColor.getColor(stack, tintIndex));
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+    }
+
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
+    public void onServerStarting(ServerStartingEvent event) {
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents
     {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
         }
+    }
+
+    public static ResourceLocation makeId(String id) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, id);
     }
 }

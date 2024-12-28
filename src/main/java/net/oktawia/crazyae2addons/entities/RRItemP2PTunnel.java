@@ -7,18 +7,16 @@ import appeng.core.AppEng;
 import appeng.items.parts.PartModels;
 import appeng.parts.p2p.CapabilityP2PTunnelPart;
 import appeng.parts.p2p.P2PModels;
-import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import org.slf4j.Logger;
 import java.util.List;
+import net.oktawia.crazyae2addons.Utils;
 
 
 public class RRItemP2PTunnel extends CapabilityP2PTunnelPart<RRItemP2PTunnel, IItemHandler> {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
     private static final P2PModels MODELS = new P2PModels(AppEng.makeId("part/p2p/p2p_tunnel_items"));
     private static final IItemHandler NULL_ITEM_HANDLER = new NullItemHandler();
     private int ContainerIndex;
@@ -66,18 +64,25 @@ public class RRItemP2PTunnel extends CapabilityP2PTunnelPart<RRItemP2PTunnel, II
 
             final int amountPerOutput = amount / outputTunnels;
             int overflow = amountPerOutput == 0 ? amount : amount % amountPerOutput;
-            List<RRItemP2PTunnel> outputs = RRItemP2PTunnel.this.getOutputs();
-            RRItemP2PTunnel output = outputs.get(ContainerIndex);
-            try (CapabilityGuard capabilityGuard = output.getAdjacentCapability()) {
-                final IItemHandler outputInv = capabilityGuard.get();
-                final int toSend = amountPerOutput + overflow;
 
-                ItemStack stackCopy = stack.copy();
-                stackCopy.setCount(toSend);
-                final int sent = toSend - ItemHandlerHelper.insertItem(outputInv, stackCopy, simulate).getCount();
+            List<RRItemP2PTunnel> outputs = Utils.rotate(RRItemP2PTunnel.this.getOutputs(), ContainerIndex);
 
-                overflow = toSend - sent;
-                remainder -= sent;
+            for (RRItemP2PTunnel target : outputs) {
+                try (CapabilityGuard capabilityGuard = target.getAdjacentCapability()) {
+                    final IItemHandler output = capabilityGuard.get();
+                    final int toSend = amountPerOutput + overflow;
+
+                    if (toSend <= 0) {
+                        break;
+                    }
+
+                    ItemStack stackCopy = stack.copy();
+                    stackCopy.setCount(toSend);
+                    final int sent = toSend - ItemHandlerHelper.insertItem(output, stackCopy, simulate).getCount();
+
+                    overflow = toSend - sent;
+                    remainder -= sent;
+                }
             }
 
             if (!simulate) {
