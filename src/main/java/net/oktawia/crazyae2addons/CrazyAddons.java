@@ -58,7 +58,7 @@ public class CrazyAddons
 
     private static void registerScreens(RegisterMenuScreensEvent event){
         InitScreens.register(
-                event, RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new, "/screens/stock_export_bus.json");
+                event, RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new, "/screens/crafting_canceller.json");
     }
 
     private static void initCapabilities(RegisterCapabilitiesEvent event) {

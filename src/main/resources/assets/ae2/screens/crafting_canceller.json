@@ -1,0 +1,15 @@
+{
+  "$schema": "schema.json",
+  "includes": ["terminals/base_terminal.json"],
+  "text": {
+    "dialog_title": {
+      "text": {
+        "translate": "gui.crazy_addons.crafting_canceller"
+      },
+      "position": {
+        "left": 8,
+        "top": 6
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.blocks.CraftingCancellerBlock;
+import net.oktawia.crazyae2addons.entities.CraftingCanceller;
 
 import java.util.function.Supplier;
 
@@ -17,7 +18,7 @@ public class RegistryMenus {
     public static final Supplier<MenuType<CraftingCancellerMenu>> CRAFTING_CANCELLER = create(
             "crafting_canceller",
             CraftingCancellerMenu::new,
-            CraftingCancellerBlock.class
+            CraftingCanceller.class
     );
 
     private static <M extends AEBaseMenu, H> Supplier<MenuType<M>> create(
