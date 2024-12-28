@@ -1,26 +1,18 @@
 package net.oktawia.crazyae2addons.menus;
 
+import appeng.menu.implementations.UpgradeableMenu;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
-import net.oktawia.crazyae2addons.menus.RegistryMenus;
+import net.oktawia.crazyae2addons.blocks.CraftingCancellerBlock;
 
-public class CraftingCancellerMenu extends AbstractContainerMenu {
+public class CraftingCancellerMenu extends UpgradeableMenu<CraftingCancellerBlock> {
 
-    public CraftingCancellerMenu(int containerId, Inventory playerInv) {
-        super(RegistryMenus.CRAFTING_CANCELLER.get(), containerId);
+    public CraftingCancellerMenu(int id, Inventory ip, CraftingCancellerBlock host) {
+        this(RegistryMenus.CRAFTING_CANCELLER.get(), id, ip, host);
     }
 
-    @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        return null;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return false;
+    public CraftingCancellerMenu(
+            MenuType<? extends CraftingCancellerMenu> menuType, int id, Inventory ip, CraftingCancellerBlock host) {
+        super(menuType, id, ip, host);
     }
 }

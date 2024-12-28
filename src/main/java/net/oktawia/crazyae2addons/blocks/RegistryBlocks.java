@@ -2,6 +2,7 @@ package net.oktawia.crazyae2addons.blocks;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.oktawia.crazyae2addons.CrazyAddons;
@@ -16,7 +17,7 @@ public class RegistryBlocks {
 
     public static final DeferredBlock<Block> CRAFTING_CANCELLER = registerBlock(
             "crafting_canceller",
-            () -> new CraftingCancellerBlock(BlockBehaviour.Properties.of())
+            () -> new CraftingCancellerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BARS))
     );
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

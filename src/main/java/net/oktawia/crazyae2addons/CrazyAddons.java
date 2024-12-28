@@ -4,6 +4,7 @@ import appeng.api.parts.RegisterPartCapabilitiesEvent;
 import appeng.api.util.AEColor;
 import appeng.client.render.StaticItemColor;
 import appeng.core.definitions.AEBlockEntities;
+import appeng.init.client.InitScreens;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
@@ -56,7 +57,8 @@ public class CrazyAddons
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event){
-        event.register(RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new);
+        InitScreens.register(
+                event, RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new, "/screens/stock_export_bus.json");
     }
 
     private static void initCapabilities(RegisterCapabilitiesEvent event) {
