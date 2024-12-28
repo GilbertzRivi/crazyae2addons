@@ -1,6 +1,10 @@
 {
   "$schema": "schema.json",
-  "includes": ["terminals/base_terminal.json"],
+  "includes": ["common/common.json", "common/player_inventory.json"],
+  "background": {
+    "texture": "guis/crafting_canceller.png",
+    "srcRect": [0, 0, 176, 199]
+  },
   "text": {
     "dialog_title": {
       "text": {
