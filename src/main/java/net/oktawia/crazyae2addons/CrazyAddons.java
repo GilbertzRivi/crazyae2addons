@@ -15,6 +15,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
 import net.oktawia.crazyae2addons.menus.RegistryMenus;
+import net.oktawia.crazyae2addons.screens.RegistryPackets;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
@@ -40,8 +41,13 @@ public class CrazyAddons
     public static final String MODID = "crazy_addons";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public CrazyAddons(IEventBus modEventBus, ModContainer modContainer)
-    {
+    static CrazyAddons INSTANCE;
+
+    public CrazyAddons(IEventBus modEventBus, ModContainer container) {
+        if (INSTANCE != null) {
+            throw new IllegalStateException();
+        }
+        INSTANCE = this;
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
@@ -53,6 +59,7 @@ public class CrazyAddons
         modEventBus.addListener(CrazyAddons::registerScreens);
         modEventBus.addListener(CrazyAddons::initCapabilities);
         modEventBus.addListener(CrazyAddons::initItemColours);
+        modEventBus.addListener(RegistryPackets.INSTANCE::onRegister);
         modEventBus.addListener(this::addCreative);
     }
 

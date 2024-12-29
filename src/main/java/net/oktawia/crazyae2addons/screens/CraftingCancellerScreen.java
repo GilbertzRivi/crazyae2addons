@@ -7,41 +7,39 @@ import appeng.client.gui.style.ScreenStyle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.oktawia.crazyae2addons.entities.CraftingCanceller;
 import net.oktawia.crazyae2addons.menus.CraftingCancellerMenu;
 import appeng.client.gui.widgets.AECheckbox;
 import appeng.client.gui.widgets.AETextField;
 import appeng.client.gui.widgets.AE2Button;
 import org.slf4j.Logger;
 
-
 public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCancellerMenu> {
     private static AETextField duration;
     private static AECheckbox onoffbutton;
     private static AE2Button confirm;
-    private static boolean initialized = false;
     private static final Logger LOGGER = LogUtils.getLogger();
+    public static Integer dur = 0;
+    public static boolean en = false;
+    public static boolean initialized;
 
     @Override
     protected void updateBeforeRender(){
         super.updateBeforeRender();
         if (!initialized){
-            CraftingCanceller host = menu.getHost();
-            onoffbutton.setSelected(host.getEnabled());
-            duration.setValue(String.valueOf(host.getDuration()));
+            duration.setValue(String.valueOf(dur));
+            onoffbutton.setSelected(en);
             initialized = true;
-            LOGGER.info("Initialized screen");
         }
     }
 
     public CraftingCancellerScreen(
             CraftingCancellerMenu menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
-        initialized = false;
         setupGui();
         this.widgets.add("onoffbutton", onoffbutton);
         this.widgets.add("duration", duration);
         this.widgets.add("confirm", confirm);
+        initialized = false;
         LOGGER.info("class builder done");
     }
 
@@ -96,5 +94,11 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
         LOGGER.info(String.format("%b | %d", en, dur));
         menu.sendState(en);
         menu.sendDuration(dur);
+    }
+
+    public void updateCraftingCancellerStatus(Boolean state, Integer duration){
+        en = state;
+        dur = duration;
+
     }
 }

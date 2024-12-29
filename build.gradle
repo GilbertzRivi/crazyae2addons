@@ -30,6 +30,13 @@ repositories {
             includeGroup("de.mari_023")
         }
     }
+    maven {
+        name 'cursemaven'
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 // Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
@@ -121,6 +128,7 @@ configurations {
 
 dependencies {
     implementation "appeng:appliedenergistics2:19.1.0-beta"
+    implementation "curse.maven:glodium-957920:5614731"
 }
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
