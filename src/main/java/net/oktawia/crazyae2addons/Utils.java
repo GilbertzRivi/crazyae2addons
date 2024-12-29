@@ -2,6 +2,7 @@ package net.oktawia.crazyae2addons;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class Utils {
 
@@ -22,5 +23,17 @@ public class Utils {
         rotatedList.addAll(inputList.subList(0, inputList.size() - effectiveOffset)); // Start part
 
         return rotatedList;
+    }
+
+    public static void asyncDelay(Runnable function, float delay) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        long delayInMillis = (long) (delay * 1000);
+        scheduler.schedule(() -> {
+            try {
+                function.run();
+            } finally {
+                scheduler.shutdown();
+            }
+        }, delayInMillis, TimeUnit.MILLISECONDS);
     }
 }
