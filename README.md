@@ -15,6 +15,8 @@ More features coming soon!
 
 - [ ] **Block Entity Tickers**: Costly, but effective way, to speed up your machines. 
 
+- [ ] **Right Click Machine**: For the picky mods that do not like to be automated. 
+
 - [ ] **Processing Pattern Modifier**: Introduce a pattern modifier enabling players to perform mathematical operations on input/output items in processing patterns. (all input/output times times sqr(2, 3), etc)
 
 - [ ] **Pattern Processing with Success Probability**: Implement crafting functionality for recipes with a success probability. The system will attempt crafting in a loop until the required quantity of output items is achieved,
