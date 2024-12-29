@@ -13,6 +13,8 @@ More features coming soon!
 
 - [ ] **Processing Pattern NBT Ignore Option**: Add an option to configure processing patterns to ignore NBT data for items returned to the network. This would simplify crafting complex items, such as entangled singularities.
 
+- [ ] **Block Entity Tickers**: Costly, but effective way, to speed up your machines. 
+
 - [ ] **Processing Pattern Modifier**: Introduce a pattern modifier enabling players to perform mathematical operations on input/output items in processing patterns. (all input/output times times sqr(2, 3), etc)
 
 - [ ] **Pattern Processing with Success Probability**: Implement crafting functionality for recipes with a success probability. The system will attempt crafting in a loop until the required quantity of output items is achieved,
