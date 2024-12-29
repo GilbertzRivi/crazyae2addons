@@ -12,14 +12,21 @@ More features coming soon!
 ## To-Do
 
 - [ ] **Processing Pattern NBT Ignore Option**: Add an option to configure processing patterns to ignore NBT data for items returned to the network. This would simplify crafting complex items, such as entangled singularities.
+
 - [ ] **Processing Pattern Modifier**: Introduce a pattern modifier enabling players to perform mathematical operations on input/output items in processing patterns. (all input/output times times sqr(2, 3), etc)
+
 - [ ] **Pattern Processing with Success Probability**: Implement crafting functionality for recipes with a success probability. The system will attempt crafting in a loop until the required quantity of output items is achieved,
 avoiding CPU clogging when a recepie fails.
+
 - [ ] **AE2 Mob Storage**: Add mob-related functionality, including a Mob Import/Export Bus for mob integration or maybe even mob farms, all within the AE2 network.
+
 - [ ] **Ultimate P2P Tunnel**: Create a powerful P2P tunnel akin to a wormhole, designed in true AE2 fashion.
+
 - [ ] **Enchanting Table Automation**: Automate enchanting by allowing input of lapis, fluid XP, and items. Players can select an enchant tier (cheap, medium, or expensive) to enchant items automatically.
+
 - [ ] **Scripting Mods Integration**: Introduce robust integration with scripting-capable mods (e.g., SFM, OpenComputers, or ComputerCraft). This feature may be developed as a separate mod in a different repository.
 An example block that might be added would be a databse block, that would provide a database interface for scripts, but the data itself would be stored inside AE2 cells. 
+
 - [ ] **ME Network Synchronization Across Instances**: Enable synchronization of ME networks between server instances on a local network. This could allow multi-threaded server setups, where different dimensions run on separate threads. Feasibility and implementation timeline are uncertain.
 
 ---
