@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "crazy_addons:block/crafting_canceller"
+    }
+  }
+}

@@ -29,10 +29,6 @@ public class RegistryEntities {
             RegistryBlocks.CRAFTING_CANCELLER
     );
 
-    public static void register(IEventBus eventBus) {
-        BLOCK_ENTITY_TYPES.register(eventBus);
-    }
-
     @SafeVarargs
     private static <T extends AEBaseBlockEntity> Supplier<BlockEntityType<T>> create(
             String id,
@@ -63,5 +59,9 @@ public class RegistryEntities {
 
     private interface BlockEntityFactory<T extends AEBaseBlockEntity> {
         T create(BlockEntityType<T> type, BlockPos pos, BlockState state);
+    }
+
+    public static void register(IEventBus eventBus) {
+        BLOCK_ENTITY_TYPES.register(eventBus);
     }
 }

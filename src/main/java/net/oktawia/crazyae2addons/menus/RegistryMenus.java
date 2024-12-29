@@ -3,12 +3,10 @@ package net.oktawia.crazyae2addons.menus;
 import appeng.menu.AEBaseMenu;
 import appeng.menu.implementations.MenuTypeBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.oktawia.crazyae2addons.CrazyAddons;
-import net.oktawia.crazyae2addons.blocks.CraftingCancellerBlock;
 import net.oktawia.crazyae2addons.entities.CraftingCanceller;
 
 import java.util.function.Supplier;

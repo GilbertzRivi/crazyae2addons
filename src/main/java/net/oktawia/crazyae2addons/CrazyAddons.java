@@ -1,5 +1,7 @@
 package net.oktawia.crazyae2addons;
 
+import appeng.api.AECapabilities;
+import appeng.api.networking.IInWorldGridNodeHost;
 import appeng.api.parts.RegisterPartCapabilitiesEvent;
 import appeng.api.util.AEColor;
 import appeng.client.render.StaticItemColor;
@@ -69,6 +71,11 @@ public class CrazyAddons
     }
 
     private static void initCapabilities(RegisterCapabilitiesEvent event) {
+        for (var type : RegistryEntities.BLOCK_ENTITY_TYPES.getEntries()) {
+            event.registerBlockEntity(
+                    AECapabilities.IN_WORLD_GRID_NODE_HOST, type.get(),
+                    (be, context) -> (IInWorldGridNodeHost) be);
+        }
         var partEvent = new RegisterPartCapabilitiesEvent();
         partEvent.addHostType(AEBlockEntities.CABLE_BUS.get());
         partEvent.register(

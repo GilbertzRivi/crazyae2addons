@@ -17,7 +17,6 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
     private static AETextField duration;
     private static AECheckbox onoffbutton;
     private static AE2Button confirm;
-    private static final Logger LOGGER = LogUtils.getLogger();
     public static Integer dur = 0;
     public static boolean en = false;
     public static boolean initialized;
@@ -40,7 +39,6 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
         this.widgets.add("duration", duration);
         this.widgets.add("confirm", confirm);
         initialized = false;
-        LOGGER.info("class builder done");
     }
 
     private void setupGui(){
@@ -63,7 +61,7 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
         boolean valid = true;
         try {
             int value = Integer.parseInt(input);
-            if (value < 0 || value > 360) {
+            if (value < 15 || value > 360) {
                 valid = false;
             }
         } catch (NumberFormatException e) {
@@ -72,7 +70,6 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
         boolean en = false;
         int dur = 0;
         if (!valid){
-            LOGGER.info("invalid input");
             onoffbutton.setSelected(false);
             duration.setTextColor(0xFF0000);
             Runnable setColorFunction = () -> duration.setTextColor(0xFFFFFF);
@@ -83,15 +80,11 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
         else{
             en = true;
             dur = Integer.parseInt(duration.getValue());
-            LOGGER.info("valid input");
             onoffbutton.setSelected(true);
             duration.setTextColor(0x00FF00);
             Runnable setColorFunction = () -> duration.setTextColor(0xFFFFFF);
-            Runnable close = () -> this.getPlayer().closeContainer();
             Utils.asyncDelay(setColorFunction, 1);
-            Utils.asyncDelay(close, 1.2f);
         }
-        LOGGER.info(String.format("%b | %d", en, dur));
         menu.sendState(en);
         menu.sendDuration(dur);
     }
@@ -99,6 +92,5 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
     public void updateCraftingCancellerStatus(Boolean state, Integer duration){
         en = state;
         dur = duration;
-
     }
 }
