@@ -11,27 +11,54 @@ More features coming soon!
 
 ## To-Do
 
-- [ ] **Processing Pattern NBT Ignore Option**: Add an option to configure processing patterns to ignore NBT data for items returned to the network. This would simplify crafting complex items, such as entangled singularities.
+- [ ] **Processing Pattern NBT Ignore Option**: Add a configuration option to allow processing patterns to ignore NBT data for items returned to the network. This would simplify crafting complex items, such as entangled singularities.
 
-- [ ] **Block Entity Tickers**: Costly, but effective way, to speed up your machines. 
+- [ ] **Block Entity Tickers**: A costly but effective way to significantly speed up machines.
 
-- [ ] **Right Click Machine**: For the picky mods that do not like to be automated. 
+- [ ] **Processing Pattern Modifier**: Introduce a pattern modifier that enables players to perform mathematical operations on input/output items in processing patterns (e.g., multiplying all inputs/outputs by `sqrt(2)` or `3`, etc.).
 
-- [ ] **Processing Pattern Modifier**: Introduce a pattern modifier enabling players to perform mathematical operations on input/output items in processing patterns. (all input/output times times sqr(2, 3), etc)
+- [ ] **Pattern Processing with Success Probability**: Implement crafting functionality for recipes with a success probability. The system will attempt crafting in a loop until the required quantity of output items is achieved, avoiding CPU clogging when a recipe fails.
 
-- [ ] **Pattern Processing with Success Probability**: Implement crafting functionality for recipes with a success probability. The system will attempt crafting in a loop until the required quantity of output items is achieved,
-avoiding CPU clogging when a recepie fails.
+- [ ] **AE2 Mob Storage**: Add mob-related functionality, including a Mob Import/Export Bus for mob integration or even mob farms, fully integrated into the AE2 network.
 
-- [ ] **AE2 Mob Storage**: Add mob-related functionality, including a Mob Import/Export Bus for mob integration or maybe even mob farms, all within the AE2 network.
+- [ ] **Ultimate P2P Tunnel**: Create a powerful P2P tunnel, akin to a wormhole, designed in true AE2 fashion.
 
-- [ ] **Ultimate P2P Tunnel**: Create a powerful P2P tunnel akin to a wormhole, designed in true AE2 fashion.
+- [ ] **Enchanting Table Automation**: Automate enchanting by enabling the input of lapis, fluid XP, and items. Players can select an enchantment tier (cheap, medium, or expensive) to automatically enchant items.
 
-- [ ] **Enchanting Table Automation**: Automate enchanting by allowing input of lapis, fluid XP, and items. Players can select an enchant tier (cheap, medium, or expensive) to enchant items automatically.
+- [ ] **Custom Displays and Visualization Tools**: Prebuilt widgets for players to use in various monitors/displays. Include a custom widget creator for advanced use cases. Add custom widgets to displays or terminals.
 
-- [ ] **Scripting Mods Integration**: Introduce robust integration with scripting-capable mods (e.g., SFM, OpenComputers, or ComputerCraft). This feature may be developed as a separate mod in a different repository.
-An example block that might be added would be a databse block, that would provide a database interface for scripts, but the data itself would be stored inside AE2 cells. 
+- [ ] **Data Guard**: Add a block that monitors the amount of data stored in the system and activates different events based on thresholds. For example, warn players about excessive NBT item storage to increase stability and prevent chunk corruption or save loss.
 
-- [ ] **ME Network Synchronization Across Instances**: Enable synchronization of ME networks between server instances on a local network. This could allow multi-threaded server setups, where different dimensions run on separate threads. Feasibility and implementation timeline are uncertain.
+- [ ] **NBT Export Bus**: Add an export bus that can export items based on their NBT tags.
+
+- [ ] **Conditional Item Transfers**: Enable resource transfers based on predefined and custom-made events. For example, output specific items when a redstone signal is detected.
+
+- [ ] **Exact Conditional Item Transfers**: Allow precise push/pull operations to/from attached inventories when a specific condition is met or an event is triggered.
+
+- [ ] **Custom Event Registering**: Allow players to register custom events within the ME network.
+
+- [ ] **Demand Prediction**: Analyze resource trends in the network to predict future demand and trigger events based on those predictions.
+
+- [ ] **Storage Health/Condition Monitoring**: Track stored resources and monitor trends, triggering events based on conditions. For example, detect power loss risks within a specified timeframe.
+
+- [ ] **World Data Readers**: Add devices that provide information about monitored world conditions and make that data accessible to the ME network.
+
+- [ ] **Cell Inventory Sorting**: Add functionality to merge items of the same type stored in different cells.
+
+- [ ] **Suggestions/Recommendations**: Analyze resource usage trends and recommend actions to the player. For example, suggest increasing power production if a power shortage is predicted.
+
+- [ ] **Custom Workflows**: Create workflows to start tasks, jobs, or transfers when specific events occur.
+
+- [ ] **Right-Click Provider**: Add a cable part that can simulate right-click actions, activated by events.
+
+- [ ] **Custom Goal Registering/Monitoring**: Allow players to set goals, such as storing a specific amount of a resource, and track progress. This is primarily a visualization tool but can trigger events based on conditions.
+
+- [ ] **ETA Calculations**: Add a service capable of calculating the estimated time for specific tasks and providing that data to other systems or triggering custom events.
+
+- [ ] **Scripting Mods Integration**: Add robust integration with scripting-capable mods (e.g., SFM, OpenComputers, or ComputerCraft). This feature could be developed as a separate mod in a different repository. For example, add a database block providing a database interface for scripts, with data stored inside AE2 cells.
+
+- [ ] **ME Network Synchronization Across Instances**: Enable synchronization of ME networks between server instances on a local network. This could support multi-threaded server setups where different dimensions run on separate threads. Feasibility and implementation timeline remain uncertain.
+
 
 ---
 
