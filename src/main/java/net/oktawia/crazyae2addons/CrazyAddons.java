@@ -8,6 +8,8 @@ import appeng.client.render.StaticItemColor;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.init.client.InitScreens;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.neoforged.fml.ModLoader;
@@ -16,8 +18,10 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
-import net.oktawia.crazyae2addons.menus.RegistryMenus;
-import net.oktawia.crazyae2addons.screens.RegistryPackets;
+import net.oktawia.crazyae2addons.menus.LimitedPatternProviderMenu;
+import net.oktawia.crazyae2addons.registries.RegistryMenus;
+import net.oktawia.crazyae2addons.registries.RegistryPackets;
+import net.oktawia.crazyae2addons.screens.LimitedPatternProviderScreen;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
@@ -31,9 +35,9 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.oktawia.crazyae2addons.entities.RegistryEntities;
-import net.oktawia.crazyae2addons.blocks.RegistryBlocks;
-import net.oktawia.crazyae2addons.items.RegistryItems;
+import net.oktawia.crazyae2addons.registries.RegistryEntities;
+import net.oktawia.crazyae2addons.registries.RegistryBlocks;
+import net.oktawia.crazyae2addons.registries.RegistryItems;
 import appeng.api.parts.RegisterPartCapabilitiesEventInternal;
 import net.oktawia.crazyae2addons.screens.CraftingCancellerScreen;
 
@@ -66,8 +70,11 @@ public class CrazyAddons
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event){
+
         InitScreens.register(
                 event, RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new, "/screens/crafting_canceller.json");
+        InitScreens.register(
+                event, RegistryMenus.LIMITED_PATTERN_PROVIDER.get(), LimitedPatternProviderScreen::new, "/screens/limited_pattern_provider.json");
     }
 
     private static void initCapabilities(RegisterCapabilitiesEvent event) {

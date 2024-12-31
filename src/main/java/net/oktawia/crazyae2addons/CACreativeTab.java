@@ -3,8 +3,7 @@ package net.oktawia.crazyae2addons;
 import java.util.ArrayList;
 
 import net.minecraft.network.chat.Component;
-import net.oktawia.crazyae2addons.items.RegistryItems;
-import net.oktawia.crazyae2addons.blocks.RegistryBlocks;
+import net.oktawia.crazyae2addons.registries.RegistryItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredRegister;

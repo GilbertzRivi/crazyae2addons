@@ -11,7 +11,6 @@ import net.oktawia.crazyae2addons.menus.CraftingCancellerMenu;
 import appeng.client.gui.widgets.AECheckbox;
 import appeng.client.gui.widgets.AETextField;
 import appeng.client.gui.widgets.AE2Button;
-import org.slf4j.Logger;
 
 public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCancellerMenu> {
     private static AETextField duration;

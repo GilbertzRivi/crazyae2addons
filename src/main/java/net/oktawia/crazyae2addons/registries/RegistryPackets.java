@@ -1,4 +1,4 @@
-package net.oktawia.crazyae2addons.screens;
+package net.oktawia.crazyae2addons.registries;
 
 import appeng.core.network.ServerboundPacket;
 import appeng.core.network.ClientboundPacket;
@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.oktawia.crazyae2addons.CrazyAddons;
+import net.oktawia.crazyae2addons.packets.GuiUpdatePacket;
 
 public class RegistryPackets extends NetworkHandler {
 

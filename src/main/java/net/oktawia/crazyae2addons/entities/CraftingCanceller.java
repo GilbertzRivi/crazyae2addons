@@ -4,13 +4,11 @@ import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.IGridNodeListener;
 import appeng.api.networking.crafting.*;
-import appeng.api.networking.security.IActionSource;
 import appeng.api.networking.ticking.IGridTickable;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.networking.ticking.TickingRequest;
 import appeng.api.stacks.AEKey;
 import appeng.api.upgrades.IUpgradeableObject;
-import appeng.block.AEBaseEntityBlock;
 import appeng.blockentity.grid.AENetworkedBlockEntity;
 import appeng.me.helpers.MachineSource;
 import com.mojang.logging.LogUtils;
@@ -22,22 +20,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.oktawia.crazyae2addons.blocks.CraftingCancellerBlock;
 import appeng.api.networking.crafting.ICraftingSimulationRequester;
 import net.oktawia.crazyae2addons.menus.CraftingCancellerMenu;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.world.level.block.Block;
 import org.slf4j.Logger;
-
-import java.lang.reflect.Array;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
+import net.oktawia.crazyae2addons.Utils;
 
 public class CraftingCanceller extends AENetworkedBlockEntity implements MenuProvider, IUpgradeableObject, IGridTickable {
     private boolean enabled;
@@ -120,7 +112,7 @@ public class CraftingCanceller extends AENetworkedBlockEntity implements MenuPro
                 duration != 0
         ){
             List<ICraftingCPU> newCpus = null;
-            if (Instant.now().getEpochSecond() - intervalStart.getEpochSecond() > duration * 1.2f){
+            if (Instant.now().getEpochSecond() - intervalStart.getEpochSecond() > duration * 2){
                 intervalStart = Instant.now();
             }
             else{
@@ -138,7 +130,6 @@ public class CraftingCanceller extends AENetworkedBlockEntity implements MenuPro
                     AEKey item = Objects.requireNonNull(x.getJobStatus()).crafting().what();
                     long amount = Objects.requireNonNull(x.getJobStatus()).crafting().amount();
                     x.cancelJob();
-                    LOGGER.info("canceled a job");
                     ICraftingSimulationRequester simRequester = () -> new MachineSource(getGridNode().getGrid()::getPivot);
                     ICraftingService craftingService = getMainNode().getGrid().getService(ICraftingService.class);
                     Future<ICraftingPlan> futurePlan = craftingService.beginCraftingCalculation(
@@ -148,20 +139,19 @@ public class CraftingCanceller extends AENetworkedBlockEntity implements MenuPro
                             amount,
                             CalculationStrategy.REPORT_MISSING_ITEMS);
 
-                    CompletableFuture.runAsync(() -> {
-                        LOGGER.info("requested calculation a job");
-                        try {
-                            ICraftingPlan craftingPlan = futurePlan.get();
-                            getMainNode().getGrid().getCraftingService().submitJob(
-                                    craftingPlan,
-                                    null,
-                                    null,
-                                    true,
-                                    simRequester.getActionSource());
-                            LOGGER.info("sheduled a job");
-                        } catch (Exception ignored) {
-                        }
-                    });
+                    Utils.asyncDelay(
+                            () -> CompletableFuture.runAsync(() -> {
+                                try {
+                                    ICraftingPlan craftingPlan = futurePlan.get();
+                                    getMainNode().getGrid().getCraftingService().submitJob(
+                                            craftingPlan,
+                                            null,
+                                            null,
+                                            true,
+                                            simRequester.getActionSource());
+                                } catch (Exception ignored) {
+                                }
+                            }), 5);
                 });
             }
             intervalStart = Instant.now();

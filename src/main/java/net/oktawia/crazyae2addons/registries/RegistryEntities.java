@@ -1,19 +1,20 @@
-package net.oktawia.crazyae2addons.entities;
+package net.oktawia.crazyae2addons.registries;
 
 import appeng.block.AEBaseEntityBlock;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.core.definitions.BlockDefinition;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.oktawia.crazyae2addons.CrazyAddons;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.oktawia.crazyae2addons.blocks.RegistryBlocks;
+import net.oktawia.crazyae2addons.entities.CraftingCanceller;
+import net.oktawia.crazyae2addons.entities.LimitedPatternProvider;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
@@ -27,6 +28,13 @@ public class RegistryEntities {
             CraftingCanceller.class,
             CraftingCanceller::new,
             RegistryBlocks.CRAFTING_CANCELLER
+    );
+
+    public static final Supplier<BlockEntityType<LimitedPatternProvider>> LIMITED_PATTERN_PROVIDER_ENTITY = create(
+            "limited_pattern_provider",
+            LimitedPatternProvider.class,
+            LimitedPatternProvider::new,
+            RegistryBlocks.LIMITED_PATTERN_PROVIDER
     );
 
     @SafeVarargs

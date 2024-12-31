@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "crazy_addons:block/limited_pattern_provider"
+  }
+}

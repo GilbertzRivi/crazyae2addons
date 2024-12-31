@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0,
+  "group": "bismuth",
+  "ingredient": {
+    "item": "ae2:pattern_provider"
+  },
+  "result": {
+    "count": 1,
+    "id": "crazy_addons:limited_pattern_provider"
+  }
+}

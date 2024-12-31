@@ -4,7 +4,8 @@ import appeng.menu.implementations.UpgradeableMenu;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.oktawia.crazyae2addons.entities.CraftingCanceller;
-import net.oktawia.crazyae2addons.screens.GuiUpdatePacket;
+import net.oktawia.crazyae2addons.packets.GuiUpdatePacket;
+import net.oktawia.crazyae2addons.registries.RegistryMenus;
 
 public class CraftingCancellerMenu extends UpgradeableMenu<CraftingCanceller> {
     public Boolean en = false;

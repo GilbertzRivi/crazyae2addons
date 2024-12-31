@@ -1,7 +1,4 @@
-package net.oktawia.crazyae2addons.screens;
-
-import java.util.ArrayList;
-import java.util.List;
+package net.oktawia.crazyae2addons.packets;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -12,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 
 import appeng.core.network.ClientboundPacket;
 import appeng.core.network.CustomAppEngPayload;
+import net.oktawia.crazyae2addons.screens.CraftingCancellerScreen;
 
 public record GuiUpdatePacket(Boolean state, Integer duration) implements ClientboundPacket {
 

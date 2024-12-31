@@ -1,6 +1,5 @@
-package net.oktawia.crazyae2addons.blocks;
+package net.oktawia.crazyae2addons.registries;
 
-import appeng.block.AEBaseEntityBlock;
 import appeng.core.definitions.BlockDefinition;
 import appeng.core.definitions.ItemDefinition;
 import net.minecraft.world.item.BlockItem;
@@ -9,14 +8,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.oktawia.crazyae2addons.CrazyAddons;
-import net.oktawia.crazyae2addons.items.RegistryItems;
+import net.oktawia.crazyae2addons.blocks.CraftingCancellerBlock;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import appeng.block.AEBaseBlockItem;
+import net.oktawia.crazyae2addons.blocks.LimitedPatternProviderBlock;
 
 import javax.annotation.Nullable;
 
@@ -29,6 +28,14 @@ public class RegistryBlocks {
             () -> new CraftingCancellerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)),
             AEBaseBlockItem::new
     );
+
+    public static final BlockDefinition<LimitedPatternProviderBlock> LIMITED_PATTERN_PROVIDER = block(
+            "Limited Pattern Provider",
+            "limited_pattern_provider",
+            () -> new LimitedPatternProviderBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)),
+            AEBaseBlockItem::new
+    );
+
     private static <T extends Block> BlockDefinition<T> block(
             String englishName,
             String id,
@@ -36,9 +43,8 @@ public class RegistryBlocks {
             @Nullable BiFunction<Block, Item.Properties, BlockItem> itemFactory) {
         var block = BLOCKS.register(id, blockSupplier);
         var item = RegistryItems.ITEMS.register(id, () -> itemFactory.apply(block.get(), new Item.Properties()));
-
-        var definition = new BlockDefinition<>(englishName, block, new ItemDefinition<>(englishName, item));
-        return definition;
+        RegistryItems.ITEMS_AR.add(item);
+        return new BlockDefinition<>(englishName, block, new ItemDefinition<>(englishName, item));
     }
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
