@@ -7,7 +7,7 @@ Crazy AE2 Addons is a Minecraft mod that enhances Applied Energistics 2 by intro
 - **Crafting Canceller**: Automatically detects and cancels frozen crafting operations, rescheduling them for seamless performance. Configurable delay before considering a task frozen.
 - **Round Robin Item P2P Tunnel**: Enables round-robin item distribution between multiple outputs, between multiple item insertions. When inputting more items, the tunnel evenly splits the stack across all outputs.
 - **Limited Pattern Provider**: You can break a pattern provider by smelting it, then it will have only one slot for patterns.
-
+  
 More features coming soon!
 
 ## To-Do
@@ -111,38 +111,38 @@ Crazy AE2 Addons is licensed under the MIT License.
 ##### **Classes**
 
 1. **`CrazyAddons`**
-    - Main mod class for initialization, event registration, and configuration.
+   - Main mod class for initialization, event registration, and configuration.
 
 2. **`CACreativeTab`**
-    - Handles the mod's creative tab (work in progress).
+   - Handles the mod's creative tab (work in progress).
 
 3. **`CraftingCancellerBlock`**
-    - Implements the Crafting Canceller block:
-        - **Methods**:
-            - `openMenu(Player, MenuHostLocator)`: Opens the block's GUI.
-            - `useWithoutItem()`: Handles interactions with no items, opening the block's GUI.
+   - Implements the Crafting Canceller block:
+     - **Methods**:
+       - `openMenu(Player, MenuHostLocator)`: Opens the block's GUI.
+       - `useWithoutItem()`: Handles interactions with no items, opening the block's GUI.
 
 4. **`CraftingCanceller`**
-    - Core logic for monitoring and rescheduling crafting jobs:
-        - **Key Methods**:
-            - `tickingRequest(IGridNode, int)`: Monitors and reschedules jobs.
-        - **Attributes**:
-            - `enabled`: Indicates if the block is going to monitor and reshedule crafting jobs.
-            - `duration`: Maximum allowed frozen time for jobs.
+   - Core logic for monitoring and rescheduling crafting jobs:
+     - **Key Methods**:
+       - `tickingRequest(IGridNode, int)`: Monitors and reschedules jobs.
+     - **Attributes**:
+       - `enabled`: Indicates if the block is going to monitor and reshedule crafting jobs.
+       - `duration`: Maximum allowed frozen time for jobs.
 
 5. **`RRItemP2PTunnel`**
-    - Implements round-robin distribution logic for P2P tunnels:
-        - **Key Methods**:
-            - `insertItem()`: Splits items across outputs.
+   - Implements round-robin distribution logic for P2P tunnels:
+     - **Key Methods**:
+       - `insertItem()`: Splits items across outputs.
 
 6. **`Utils`**
-    - Utility functions for cyclic distribution (`rotate`) and asynchronous delays (`asyncDelay`).
+   - Utility functions for cyclic distribution (`rotate`) and asynchronous delays (`asyncDelay`).
 
 ---
 
 #### Assets
 
 - **GUI**:
-    - `crafting_canceller.json`: Defines the GUI layout for the Crafting Canceller block.
+  - `crafting_canceller.json`: Defines the GUI layout for the Crafting Canceller block.
 - **Models**:
-    - `crafting_canceller.json`: Visual representation of the Crafting Canceller block.
+  - `crafting_canceller.json`: Visual representation of the Crafting Canceller block.
