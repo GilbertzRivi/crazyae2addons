@@ -1,5 +1,6 @@
 {
   "item.crazy_addons.rr_item_p2p_tunnel": "Round Robin Item P2P Tunnel",
+  "item.crazy_addons.entity_ticker": "Entity Ticker",
   "block.crazy_addons.crafting_canceller": "Crafting Canceller",
   "block.crazy_addons.limited_pattern_provider": "Limited Pattern Provider",
   "gui.crazy_addons.crafting_canceller": "Crafting Canceller",
@@ -7,5 +8,8 @@
   "gui.crazy_addons.crafting_canceller_inputlabel": "Max duration (s)",
   "gui.crazy_addons.crafting_canceller_infol1": "Set max frozen craft time",
   "gui.crazy_addons.crafting_canceller_infol2": "before reschedule [15-360s]",
-  "gui.crazy_addons.limited_pattern": "Pattern"
+  "gui.crazy_addons.limited_pattern": "Pattern",
+  "gui.crazy_addons.entity_ticker": "Entity Ticker",
+  "gui.crazy_addons.entity_ticker_label": "Select strength 0-16",
+  "gui.crazy_addons.entity_ticker_enabled": "Enabled"
 }

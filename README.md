@@ -7,16 +7,13 @@ Crazy AE2 Addons is a Minecraft mod that enhances Applied Energistics 2 by intro
 - **Crafting Canceller**: Automatically detects and cancels frozen crafting operations, rescheduling them for seamless performance. Configurable delay before considering a task frozen.
 - **Round Robin Item P2P Tunnel**: Enables round-robin item distribution between multiple outputs, between multiple item insertions. When inputting more items, the tunnel evenly splits the stack across all outputs.
 - **Limited Pattern Provider**: You can break a pattern provider by smelting it, then it will have only one slot for patterns.
-  
+- **Block Entity Tickers**: A costly but effective way to significantly speed up machines.
+
 More features coming soon!
 
 ## To-Do
 
 - [ ] **Processing Pattern NBT Ignore Option**: Add a configuration option to allow processing patterns to ignore NBT data for items returned to the network. This would simplify crafting complex items, such as entangled singularities.
-
-- [ ] **Block Entity Tickers**: A costly but effective way to significantly speed up machines.
-
-- [ ] **Pattern Cell**: A cell where you can store patterns, and it works with pattern providers, so you can fit more patterns inside one provider.
 
 - [ ] **Processing Pattern Modifier**: Introduce a pattern modifier that enables players to perform mathematical operations on input/output items in processing patterns (e.g., multiplying all inputs/outputs by `sqrt(2)` or `3`, etc.).
 

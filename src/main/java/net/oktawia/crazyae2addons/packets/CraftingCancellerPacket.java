@@ -11,17 +11,17 @@ import appeng.core.network.ClientboundPacket;
 import appeng.core.network.CustomAppEngPayload;
 import net.oktawia.crazyae2addons.screens.CraftingCancellerScreen;
 
-public record GuiUpdatePacket(Boolean state, Integer duration) implements ClientboundPacket {
+public record CraftingCancellerPacket(Boolean state, Integer duration) implements ClientboundPacket {
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, GuiUpdatePacket> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, CraftingCancellerPacket> STREAM_CODEC =
             StreamCodec.composite(
                     ByteBufCodecs.BOOL,
-                    GuiUpdatePacket::state,
+                    CraftingCancellerPacket::state,
                     ByteBufCodecs.INT,
-                    GuiUpdatePacket::duration,
-                    GuiUpdatePacket::new);
+                    CraftingCancellerPacket::duration,
+                    CraftingCancellerPacket::new);
 
-    public static final Type<GuiUpdatePacket> TYPE = CustomAppEngPayload.createType("crazy_addons_crafting_canceller_gui_state");
+    public static final Type<CraftingCancellerPacket> TYPE = CustomAppEngPayload.createType("crazy_addons_crafting_canceller_gui_state");
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

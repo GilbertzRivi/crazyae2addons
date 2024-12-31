@@ -8,9 +8,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.entities.CraftingCanceller;
+import net.oktawia.crazyae2addons.entities.EntityTicker;
 import net.oktawia.crazyae2addons.entities.LimitedPatternProvider;
 import net.oktawia.crazyae2addons.logic.LimitedPatternProviderLogicHost;
 import net.oktawia.crazyae2addons.menus.CraftingCancellerMenu;
+import net.oktawia.crazyae2addons.menus.EntityTickerMenu;
 import net.oktawia.crazyae2addons.menus.LimitedPatternProviderMenu;
 
 import java.util.function.Supplier;
@@ -27,6 +29,12 @@ public class RegistryMenus {
             "limited_pattern_provider",
             LimitedPatternProviderMenu::new,
             LimitedPatternProviderLogicHost.class
+    );
+
+    public static final Supplier<MenuType<EntityTickerMenu>> ENTITY_TICKER = create(
+            "entity_ticker",
+            EntityTickerMenu::new,
+            EntityTicker.class
     );
 
     private static <M extends AEBaseMenu, H> Supplier<MenuType<M>> create(

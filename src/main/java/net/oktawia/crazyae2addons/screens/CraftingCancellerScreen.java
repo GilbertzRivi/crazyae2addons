@@ -57,13 +57,10 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
 
     private void validateInput(){
         String input = duration.getValue();
-        boolean valid = true;
-        try {
-            int value = Integer.parseInt(input);
-            if (value < 15 || value > 360) {
-                valid = false;
-            }
-        } catch (NumberFormatException e) {
+        boolean valid = Utils.checkNumber(input);
+        if (valid && Integer.parseInt(duration.getValue()) >= 15 && Integer.parseInt(duration.getValue()) <= 360){
+            valid = true;
+        } else {
             valid = false;
         }
         boolean en = false;

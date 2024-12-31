@@ -9,7 +9,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.oktawia.crazyae2addons.CrazyAddons;
-import net.oktawia.crazyae2addons.packets.GuiUpdatePacket;
+import net.oktawia.crazyae2addons.packets.CraftingCancellerPacket;
+import net.oktawia.crazyae2addons.packets.EntityTickerPacket;
 
 public class RegistryPackets extends NetworkHandler {
 
@@ -23,7 +24,8 @@ public class RegistryPackets extends NetworkHandler {
     public void onRegister(RegisterPayloadHandlersEvent event) {
         super.onRegister(event);
 
-        clientbound(this.registrar, GuiUpdatePacket.TYPE, GuiUpdatePacket.STREAM_CODEC);
+        clientbound(this.registrar, CraftingCancellerPacket.TYPE, CraftingCancellerPacket.STREAM_CODEC);
+        clientbound(this.registrar, EntityTickerPacket.TYPE, EntityTickerPacket.STREAM_CODEC);
     }
 
     private static <T extends ClientboundPacket> void clientbound(

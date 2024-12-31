@@ -2,6 +2,9 @@ package net.oktawia.crazyae2addons.registries;
 
 import appeng.core.definitions.BlockDefinition;
 import appeng.core.definitions.ItemDefinition;
+import appeng.items.AEBaseItem;
+import appeng.items.parts.PartItem;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
@@ -12,6 +15,7 @@ import net.oktawia.crazyae2addons.blocks.CraftingCancellerBlock;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import appeng.block.AEBaseBlockItem;
@@ -20,6 +24,7 @@ import net.oktawia.crazyae2addons.blocks.LimitedPatternProviderBlock;
 import javax.annotation.Nullable;
 
 public class RegistryBlocks {
+    public static ArrayList<BlockDefinition<?>> BLOCK_DEFS = new ArrayList<>();
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CrazyAddons.MODID);
 
     public static final BlockDefinition<CraftingCancellerBlock> CRAFTING_CANCELLER = block(
@@ -43,8 +48,9 @@ public class RegistryBlocks {
             @Nullable BiFunction<Block, Item.Properties, BlockItem> itemFactory) {
         var block = BLOCKS.register(id, blockSupplier);
         var item = RegistryItems.ITEMS.register(id, () -> itemFactory.apply(block.get(), new Item.Properties()));
-        RegistryItems.ITEMS_AR.add(item);
-        return new BlockDefinition<>(englishName, block, new ItemDefinition<>(englishName, item));
+        var def = new BlockDefinition<>(englishName, block, new ItemDefinition<>(englishName, item));
+        BLOCK_DEFS.add(def);
+        return def;
     }
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

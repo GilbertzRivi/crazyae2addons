@@ -4,7 +4,7 @@ import appeng.menu.implementations.UpgradeableMenu;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.oktawia.crazyae2addons.entities.CraftingCanceller;
-import net.oktawia.crazyae2addons.packets.GuiUpdatePacket;
+import net.oktawia.crazyae2addons.packets.CraftingCancellerPacket;
 import net.oktawia.crazyae2addons.registries.RegistryMenus;
 
 public class CraftingCancellerMenu extends UpgradeableMenu<CraftingCanceller> {
@@ -48,7 +48,7 @@ public class CraftingCancellerMenu extends UpgradeableMenu<CraftingCanceller> {
     public void broadcastChanges(){
         super.broadcastChanges();
         if (isServerSide()){
-            sendPacketToClient(new GuiUpdatePacket(this.en, this.dur));
+            sendPacketToClient(new CraftingCancellerPacket(this.en, this.dur));
         }
     }
 

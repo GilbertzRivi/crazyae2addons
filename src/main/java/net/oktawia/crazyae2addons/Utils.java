@@ -36,4 +36,17 @@ public class Utils {
             }
         }, delayInMillis, TimeUnit.MILLISECONDS);
     }
+
+    public static boolean checkNumber(String input) {
+        boolean valid = true;
+        try {
+            int value = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            valid = false;
+        }
+        return valid;
+    }
+    public static boolean inRange(int input, int x, int y){
+        return (input >= x && input <= y);
+    }
 }

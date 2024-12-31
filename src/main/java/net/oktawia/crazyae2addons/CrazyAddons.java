@@ -8,8 +8,6 @@ import appeng.client.render.StaticItemColor;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.init.client.InitScreens;
 import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.neoforged.fml.ModLoader;
@@ -18,9 +16,9 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
-import net.oktawia.crazyae2addons.menus.LimitedPatternProviderMenu;
 import net.oktawia.crazyae2addons.registries.RegistryMenus;
 import net.oktawia.crazyae2addons.registries.RegistryPackets;
+import net.oktawia.crazyae2addons.screens.EntityTickerScreen;
 import net.oktawia.crazyae2addons.screens.LimitedPatternProviderScreen;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
@@ -72,9 +70,23 @@ public class CrazyAddons
     private static void registerScreens(RegisterMenuScreensEvent event){
 
         InitScreens.register(
-                event, RegistryMenus.CRAFTING_CANCELLER.get(), CraftingCancellerScreen::new, "/screens/crafting_canceller.json");
+                event,
+                RegistryMenus.CRAFTING_CANCELLER.get(),
+                CraftingCancellerScreen::new,
+                "/screens/crafting_canceller.json"
+        );
         InitScreens.register(
-                event, RegistryMenus.LIMITED_PATTERN_PROVIDER.get(), LimitedPatternProviderScreen::new, "/screens/limited_pattern_provider.json");
+                event,
+                RegistryMenus.LIMITED_PATTERN_PROVIDER.get(),
+                LimitedPatternProviderScreen::new,
+                "/screens/limited_pattern_provider.json"
+        );
+        InitScreens.register(
+                event,
+                RegistryMenus.ENTITY_TICKER.get(),
+                EntityTickerScreen::new,
+                "/screens/entity_ticker.json"
+        );
     }
 
     private static void initCapabilities(RegisterCapabilitiesEvent event) {
@@ -95,6 +107,7 @@ public class CrazyAddons
 
     private static void initItemColours(RegisterColorHandlersEvent.Item event){
         event.register(makeOpaque(new StaticItemColor(AEColor.LIGHT_BLUE)), RegistryItems.RR_ITEM_P2P_TUNNEL.asItem());
+        event.register(makeOpaque(new StaticItemColor(AEColor.LIGHT_BLUE)), RegistryItems.ENTITY_TICKER.asItem());
     }
 
     private static ItemColor makeOpaque(ItemColor itemColor) {

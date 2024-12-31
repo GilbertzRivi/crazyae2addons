@@ -3,6 +3,8 @@ package net.oktawia.crazyae2addons;
 import java.util.ArrayList;
 
 import net.minecraft.network.chat.Component;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.oktawia.crazyae2addons.registries.RegistryBlocks;
 import net.oktawia.crazyae2addons.registries.RegistryItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,7 +28,8 @@ public final class CACreativeTab {
 
     private static void populateTab(CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output) {
         var itemDefs = new ArrayList<ItemDefinition<?>>();
-        itemDefs.add(RegistryItems.RR_ITEM_P2P_TUNNEL);
+        RegistryItems.ITEM_DEFS.forEach(x -> itemDefs.add(x));
+        RegistryBlocks.BLOCK_DEFS.forEach(x -> itemDefs.add(x.item()));
 
         for (var itemDef : itemDefs) {
             var item = itemDef.asItem();

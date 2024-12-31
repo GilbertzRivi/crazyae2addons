@@ -12,15 +12,17 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import static net.oktawia.crazyae2addons.CrazyAddons.MODID;
 
+import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.entities.EntityTicker;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public class RegistryItems {
-    public static ArrayList<DeferredItem<?>> ITEMS_AR = new ArrayList<DeferredItem<?>>();
+    public static ArrayList<ItemDefinition<?>> ITEM_DEFS = new ArrayList<>();
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
     public static final ItemDefinition<PartItem<RRItemP2PTunnel>> RR_ITEM_P2P_TUNNEL = part(
@@ -35,10 +37,11 @@ public class RegistryItems {
         return item(englishName, id, p -> new PartItem<>(p, partClass, factory));
     }
 
-    private static <T extends Item> ItemDefinition<T> item(
+    public static <T extends Item> ItemDefinition<T> item(
             String englishName, String id, Function<Item.Properties, T> factory) {
-        var definition = new ItemDefinition<>(englishName, ITEMS.registerItem(id, factory));
-        return definition;
+        var def = new ItemDefinition<>(englishName, ITEMS.registerItem(id, factory));
+        ITEM_DEFS.add(def);
+        return def;
     }
 
     public static void register(IEventBus eventBus) {
