@@ -12,8 +12,10 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import static net.oktawia.crazyae2addons.CrazyAddons.MODID;
 
+import net.oktawia.crazyae2addons.entities.EntityTicker;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.function.Function;
 
@@ -23,6 +25,9 @@ public class RegistryItems {
 
     public static final ItemDefinition<PartItem<RRItemP2PTunnel>> RR_ITEM_P2P_TUNNEL = part(
             "RR Item P2P Tunnel", "rr_item_p2p_tunnel", RRItemP2PTunnel.class, RRItemP2PTunnel::new);
+
+    public static final ItemDefinition<PartItem<EntityTicker>> ENTITY_TICKER = part(
+            "Entity Ticker", "entity_ticker", EntityTicker.class, EntityTicker::new);
 
     private static <T extends IPart> ItemDefinition<PartItem<T>> part(
             String englishName, String id, Class<T> partClass, Function<IPartItem<T>, T> factory) {
