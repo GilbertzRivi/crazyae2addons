@@ -15,6 +15,10 @@ More features coming soon!
 
 - [ ] **Block Entity Tickers**: A costly but effective way to significantly speed up machines.
 
+- [ ] **Limited Pattern Provider**: You can break a pattern provider by smelting it, then it will have only one slot for patterns.
+
+- [ ] **Pattern Cell**: A cell where you can store patterns, and it works with pattern providers, so you can fit more patterns inside one provider.
+
 - [ ] **Processing Pattern Modifier**: Introduce a pattern modifier that enables players to perform mathematical operations on input/output items in processing patterns (e.g., multiplying all inputs/outputs by `sqrt(2)` or `3`, etc.).
 
 - [ ] **Pattern Processing with Success Probability**: Implement crafting functionality for recipes with a success probability. The system will attempt crafting in a loop until the required quantity of output items is achieved, avoiding CPU clogging when a recipe fails.
