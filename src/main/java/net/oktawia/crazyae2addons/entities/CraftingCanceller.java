@@ -118,13 +118,13 @@ public class CraftingCanceller extends AENetworkedBlockEntity implements MenuPro
             else{
                 newCpus = getCraftingCpus();
                 List<ICraftingCPU> matchedCpus = newCpus.stream()
-                        .filter(cpu -> cpu.getJobStatus() != null) // Ensure the JobStatus is not null
-                        .filter(cpu -> getCraftingCpus().stream()
-                                .map(ICraftingCPU::getJobStatus)
-                                .filter(Objects::nonNull)
-                                .anyMatch(job -> cpu.getJobStatus().progress() == job.progress()
-                                        && cpu.getJobStatus().crafting().equals(job.crafting())))
-                        .toList();
+                    .filter(cpu -> cpu.getJobStatus() != null)
+                    .filter(cpu -> getCraftingCpus().stream()
+                        .map(ICraftingCPU::getJobStatus)
+                        .filter(Objects::nonNull)
+                        .anyMatch(job -> cpu.getJobStatus().progress() == job.progress()
+                            && cpu.getJobStatus().crafting().equals(job.crafting())))
+                    .toList();
 
                 matchedCpus.forEach(x -> {
                     AEKey item = Objects.requireNonNull(x.getJobStatus()).crafting().what();
@@ -133,25 +133,25 @@ public class CraftingCanceller extends AENetworkedBlockEntity implements MenuPro
                     ICraftingSimulationRequester simRequester = () -> new MachineSource(getGridNode().getGrid()::getPivot);
                     ICraftingService craftingService = getMainNode().getGrid().getService(ICraftingService.class);
                     Future<ICraftingPlan> futurePlan = craftingService.beginCraftingCalculation(
-                            getMainNode().getNode().getLevel(),
-                            simRequester,
-                            item,
-                            amount,
-                            CalculationStrategy.REPORT_MISSING_ITEMS);
+                        getMainNode().getNode().getLevel(),
+                        simRequester,
+                        item,
+                        amount,
+                        CalculationStrategy.REPORT_MISSING_ITEMS);
 
                     Utils.asyncDelay(
-                            () -> CompletableFuture.runAsync(() -> {
-                                try {
-                                    ICraftingPlan craftingPlan = futurePlan.get();
-                                    getMainNode().getGrid().getCraftingService().submitJob(
-                                            craftingPlan,
-                                            null,
-                                            null,
-                                            true,
-                                            simRequester.getActionSource());
-                                } catch (Exception ignored) {
-                                }
-                            }), 5);
+                        () -> CompletableFuture.runAsync(() -> {
+                            try {
+                                ICraftingPlan craftingPlan = futurePlan.get();
+                                getMainNode().getGrid().getCraftingService().submitJob(
+                                    craftingPlan,
+                                    null,
+                                    null,
+                                    true,
+                                    simRequester.getActionSource());
+                            } catch (Exception ignored) {
+                            }
+                        }), 5);
                 });
             }
             intervalStart = Instant.now();

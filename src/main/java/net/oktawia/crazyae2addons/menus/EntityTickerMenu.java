@@ -1,68 +1,53 @@
 package net.oktawia.crazyae2addons.menus;
 
-import appeng.menu.AEBaseMenu;
-import appeng.menu.guisync.GuiSync;
 import appeng.menu.implementations.MenuTypeBuilder;
+import appeng.menu.implementations.UpgradeableMenu;
+import appeng.menu.slot.OptionalFakeSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.oktawia.crazyae2addons.entities.EntityTicker;
-import net.oktawia.crazyae2addons.packets.CraftingCancellerPacket;
 import net.oktawia.crazyae2addons.packets.EntityTickerPacket;
 import net.oktawia.crazyae2addons.registries.RegistryMenus;
 
-public class EntityTickerMenu extends AEBaseMenu {
-
-    public Integer tickerStrength = 0;
-    public Boolean tickerEnabled = false;
-    private final EntityTicker host;
-    private static final String ACTION_SEND_STATE = "ActionSendState";
-    private static final String ACTION_SEND_DURATION = "ActionSendDuration";
+public class EntityTickerMenu extends UpgradeableMenu<EntityTicker> {
+    public int upgradeNum = 0;
+    private String ACTION_SEND_UPGRADE_NUM = "actionSendUpgradeNum";
 
     public EntityTickerMenu(
             int id, Inventory ip, EntityTicker host) {
         super(RegistryMenus.ENTITY_TICKER.get(), id, ip, host);
-        this.host = host;
-        tickerStrength = host.tickerStrength;
-        tickerEnabled = host.tickerEnabled;
-        registerClientAction(ACTION_SEND_STATE, Boolean.class, this::sendState);
-        registerClientAction(ACTION_SEND_DURATION, Integer.class, this::sendStrength);
+        getHost().menu = this;
+        registerClientAction(ACTION_SEND_UPGRADE_NUM, Integer.class, this::sendUpgradeNum);
     }
 
-    public static final MenuType<EntityTickerMenu> MENU_TYPE = MenuTypeBuilder
-            .create(EntityTickerMenu::new, EntityTicker.class)
-            .build("entity_ticker");
-
-    public void sendState(boolean state){
+    public void sendUpgradeNum(int num){
         if (isClientSide()){
-            sendClientAction(ACTION_SEND_STATE, state);
+            sendClientAction(ACTION_SEND_UPGRADE_NUM, num);
         }
         else{
-            this.host.tickerEnabled = state;
-            setGuiState(state, this.host.tickerStrength);
-        }
-    }
-
-    public void sendStrength(int str){
-        if (isClientSide()){
-            sendClientAction(ACTION_SEND_DURATION, str);
-        }
-        else{
-            this.host.tickerStrength = str;
-            setGuiState(this.host.tickerEnabled, str);
+            this.upgradeNum = num;
+            broadcastChanges();
         }
     }
 
     @Override
     public void broadcastChanges(){
-        super.broadcastChanges();
         if (isServerSide()){
-            sendPacketToClient(new EntityTickerPacket(this.tickerEnabled, this.tickerStrength));
+            sendPacketToClient(new EntityTickerPacket(this.upgradeNum));
         }
+
+        for (Object o : this.slots) {
+            if (o instanceof OptionalFakeSlot fs) {
+                if (!fs.isSlotEnabled() && !fs.getDisplayStack().isEmpty()) {
+                    fs.clearStack();
+                }
+            }
+        }
+
+        this.standardDetectAndSendChanges();
     }
 
-    public void setGuiState(boolean en, int dur){
-        this.tickerEnabled = en;
-        this.tickerStrength = dur;
-        broadcastChanges();
-    }
+    public static final MenuType<EntityTickerMenu> MENU_TYPE = MenuTypeBuilder
+            .create(EntityTickerMenu::new, EntityTicker.class)
+            .build("entity_ticker");
 }

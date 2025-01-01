@@ -14,6 +14,7 @@ import static net.oktawia.crazyae2addons.CrazyAddons.MODID;
 
 import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.entities.EntityTicker;
+import net.oktawia.crazyae2addons.entities.NBTExportBus;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
 
 import javax.swing.text.html.parser.Entity;
@@ -30,6 +31,9 @@ public class RegistryItems {
 
     public static final ItemDefinition<PartItem<EntityTicker>> ENTITY_TICKER = part(
             "Entity Ticker", "entity_ticker", EntityTicker.class, EntityTicker::new);
+
+    public static final ItemDefinition<PartItem<NBTExportBus>> NBT_EXPORT_BUS = part(
+            "NBT Export Bus", "nbt_export_bus", NBTExportBus.class, NBTExportBus::new);
 
     private static <T extends IPart> ItemDefinition<PartItem<T>> part(
             String englishName, String id, Class<T> partClass, Function<IPartItem<T>, T> factory) {

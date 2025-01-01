@@ -1,7 +1,9 @@
 package net.oktawia.crazyae2addons;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 
 public class Utils {
@@ -48,5 +50,23 @@ public class Utils {
     }
     public static boolean inRange(int input, int x, int y){
         return (input >= x && input <= y);
+    }
+
+    public static String shortenNumber(double number) {
+        Map<Double, String> thresholds = new LinkedHashMap<>();
+        thresholds.put(1e18, "E");
+        thresholds.put(1e15, "P");
+        thresholds.put(1e12, "T");
+        thresholds.put(1e9, "G");
+        thresholds.put(1e6, "M");
+        thresholds.put(1e3, "K");
+        for (Map.Entry<Double, String> entry : thresholds.entrySet()) {
+            double threshold = entry.getKey();
+            String name = entry.getValue();
+            if (number >= threshold) {
+                return String.format("%.2f %s", number / threshold, name);
+            }
+        }
+        return String.valueOf(number);
     }
 }

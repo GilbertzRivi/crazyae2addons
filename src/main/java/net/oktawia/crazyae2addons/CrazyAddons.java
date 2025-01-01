@@ -1,8 +1,10 @@
 package net.oktawia.crazyae2addons;
 
 import appeng.api.AECapabilities;
+import appeng.api.features.P2PTunnelAttunement;
 import appeng.api.networking.IInWorldGridNodeHost;
 import appeng.api.parts.RegisterPartCapabilitiesEvent;
+import appeng.api.upgrades.Upgrades;
 import appeng.api.util.AEColor;
 import appeng.client.render.StaticItemColor;
 import appeng.core.definitions.AEBlockEntities;
@@ -10,6 +12,7 @@ import appeng.init.client.InitScreens;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
+import net.neoforged.bus.api.Event;
 import net.neoforged.fml.ModLoader;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -38,6 +41,7 @@ import net.oktawia.crazyae2addons.registries.RegistryBlocks;
 import net.oktawia.crazyae2addons.registries.RegistryItems;
 import appeng.api.parts.RegisterPartCapabilitiesEventInternal;
 import net.oktawia.crazyae2addons.screens.CraftingCancellerScreen;
+import appeng.core.definitions.AEItems;
 
 @Mod(CrazyAddons.MODID)
 public class CrazyAddons
@@ -63,8 +67,20 @@ public class CrazyAddons
         modEventBus.addListener(CrazyAddons::registerScreens);
         modEventBus.addListener(CrazyAddons::initCapabilities);
         modEventBus.addListener(CrazyAddons::initItemColours);
+        modEventBus.addListener(CrazyAddons::initUpgrades);
+        modEventBus.addListener(CrazyAddons::initAttunements);
         modEventBus.addListener(RegistryPackets.INSTANCE::onRegister);
         modEventBus.addListener(this::addCreative);
+    }
+
+    private static void initAttunements(FMLCommonSetupEvent event){
+        P2PTunnelAttunement.registerAttunementTag(RegistryItems.RR_ITEM_P2P_TUNNEL.get());
+    }
+
+    private static void initUpgrades(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            Upgrades.add(AEItems.SPEED_CARD, RegistryItems.ENTITY_TICKER, 8);
+        });
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event){

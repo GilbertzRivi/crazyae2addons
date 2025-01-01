@@ -10,14 +10,12 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.oktawia.crazyae2addons.screens.EntityTickerScreen;
 
-public record EntityTickerPacket(boolean tickerEnabled, int tickerStrength) implements ClientboundPacket {
+public record EntityTickerPacket(int upgradeNum) implements ClientboundPacket {
 
         public static final StreamCodec<RegistryFriendlyByteBuf, EntityTickerPacket> STREAM_CODEC =
                 StreamCodec.composite(
-                        ByteBufCodecs.BOOL,
-                        EntityTickerPacket::tickerEnabled,
                         ByteBufCodecs.INT,
-                        EntityTickerPacket::tickerStrength,
+                        EntityTickerPacket::upgradeNum,
                         EntityTickerPacket::new);
 
         public static final CustomPacketPayload.Type<EntityTickerPacket> TYPE = CustomAppEngPayload.createType(
@@ -32,7 +30,7 @@ public record EntityTickerPacket(boolean tickerEnabled, int tickerStrength) impl
         @Override
         public void handleOnClient(Player player) {
             if (Minecraft.getInstance().screen instanceof EntityTickerScreen screen) {
-                screen.updateStatus(this.tickerEnabled, this.tickerStrength);
+                screen.refreshGui(this.upgradeNum);
             }
         }
 }
