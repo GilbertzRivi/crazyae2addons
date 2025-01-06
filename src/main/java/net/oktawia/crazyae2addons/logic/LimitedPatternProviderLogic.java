@@ -1,6 +1,5 @@
 package net.oktawia.crazyae2addons.logic;
 
-
 import java.util.*;
 
 import org.jetbrains.annotations.Nullable;

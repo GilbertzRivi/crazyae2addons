@@ -10,10 +10,9 @@ import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.entities.CraftingCanceller;
 import net.oktawia.crazyae2addons.entities.EntityTicker;
 import net.oktawia.crazyae2addons.entities.LimitedPatternProvider;
+import net.oktawia.crazyae2addons.entities.NBTExportBus;
 import net.oktawia.crazyae2addons.logic.LimitedPatternProviderLogicHost;
-import net.oktawia.crazyae2addons.menus.CraftingCancellerMenu;
-import net.oktawia.crazyae2addons.menus.EntityTickerMenu;
-import net.oktawia.crazyae2addons.menus.LimitedPatternProviderMenu;
+import net.oktawia.crazyae2addons.menus.*;
 
 import java.util.function.Supplier;
 
@@ -35,6 +34,18 @@ public class RegistryMenus {
             "entity_ticker",
             EntityTickerMenu::new,
             EntityTicker.class
+    );
+
+    public static final Supplier<MenuType<NBTExportBusMenu>> NBT_EXPORT_BUS = create(
+            "nbt_export_bus",
+            NBTExportBusMenu::new,
+            NBTExportBus.class
+    );
+
+    public static final Supplier<MenuType<NBTListSubMenu>> NBT_LIST_SUBMENU = create(
+            "nbt_list_submenu",
+            NBTListSubMenu::new,
+            NBTExportBus.class
     );
 
     private static <M extends AEBaseMenu, H> Supplier<MenuType<M>> create(

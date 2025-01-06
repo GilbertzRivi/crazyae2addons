@@ -11,6 +11,8 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.packets.CraftingCancellerPacket;
 import net.oktawia.crazyae2addons.packets.EntityTickerPacket;
+import net.oktawia.crazyae2addons.packets.NBTExportBusPacket;
+import net.oktawia.crazyae2addons.packets.NBTRemoveComponentPacket;
 
 public class RegistryPackets extends NetworkHandler {
 
@@ -26,6 +28,8 @@ public class RegistryPackets extends NetworkHandler {
 
         clientbound(this.registrar, CraftingCancellerPacket.TYPE, CraftingCancellerPacket.STREAM_CODEC);
         clientbound(this.registrar, EntityTickerPacket.TYPE, EntityTickerPacket.STREAM_CODEC);
+        serverbound(this.registrar, NBTExportBusPacket.TYPE, NBTExportBusPacket.STREAM_CODEC);
+        serverbound(this.registrar, NBTRemoveComponentPacket.TYPE, NBTRemoveComponentPacket.STREAM_CODEC);
     }
 
     private static <T extends ClientboundPacket> void clientbound(
@@ -33,7 +37,7 @@ public class RegistryPackets extends NetworkHandler {
             CustomPacketPayload.Type<T> type,
             StreamCodec<RegistryFriendlyByteBuf, T> codec) {
         registrar.playToClient(type, codec, ClientboundPacket::handleOnClient);
-    }
+    };
 
     private static <T extends ServerboundPacket> void serverbound(
             PayloadRegistrar registrar,

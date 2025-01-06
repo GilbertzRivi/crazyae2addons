@@ -1,0 +1,95 @@
+{
+  "$schema": "schema.json",
+  "includes": ["common/common.json", "common/player_inventory.json"],
+  "background": {
+    "texture": "guis/nbt_bus.png",
+    "srcRect": [0, 0, 176, 199]
+  },
+  "slots": {
+    "CONFIG": {
+      "left": 80,
+      "top": 37
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "text": {
+        "translate": "gui.crazy_addons.nbt_export_bus"
+      },
+      "position": {
+        "left": 8,
+        "top": 6
+      }
+    },
+    "input_hint": {
+      "position": {
+        "top": 35,
+        "left": 88
+      },
+      "align": "CENTER"
+    },
+    "input_val": {
+      "position": {
+        "top": 47,
+        "left": 88
+      },
+      "align": "CENTER"
+    }
+  },
+  "widgets": {
+    "type": {
+      "left": 18,
+      "top": 15,
+      "width": 140,
+      "height": 15
+    },
+    "type_minus": {
+      "left": 4,
+      "top": 15,
+      "width": 12,
+      "height": 15
+    },
+    "type_plus": {
+      "left": 160,
+      "top": 15,
+      "width": 12,
+      "height": 15
+    },
+    "load_from_item": {
+      "left": 110,
+      "top": 37,
+      "width": 50,
+      "height": 15
+    },
+    "input": {
+      "left": 38,
+      "top": 70,
+      "width": 100,
+      "height": 20
+    },
+    "previous_nbt": {
+      "left": 30,
+      "top": 37,
+      "width": 15,
+      "height": 15
+    },
+    "next_nbt": {
+      "left": 50,
+      "top": 37,
+      "width": 15,
+      "height": 15
+    },
+    "match_mode": {
+      "left": 58,
+      "top": 85,
+      "width": 60,
+      "height": 15
+    },
+    "list_filters": {
+      "left": 100,
+      "top": 120,
+      "width": 50,
+      "height": 15
+    }
+  }
+}

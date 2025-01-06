@@ -1,6 +1,7 @@
 package net.oktawia.crazyae2addons.screens;
 
 import com.mojang.logging.LogUtils;
+import net.oktawia.crazyae2addons.CrazyAddons;
 import net.oktawia.crazyae2addons.Utils;
 import appeng.client.gui.implementations.UpgradeableScreen;
 import appeng.client.gui.style.ScreenStyle;
@@ -49,7 +50,7 @@ public class CraftingCancellerScreen extends UpgradeableScreen<CraftingCanceller
         );
         duration.setBordered(false);
         confirm = new AE2Button(
-            0, 0, 0, 0, Component.empty().append("✔"), btn -> {
+            0, 0, 0, 0, Component.empty().append(CrazyAddons.checkmark), btn -> {
                 validateInput();
             }
         );

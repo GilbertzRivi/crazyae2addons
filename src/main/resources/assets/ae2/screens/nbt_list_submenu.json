@@ -1,0 +1,19 @@
+{
+  "$schema": "schema.json",
+  "includes": ["common/common.json"],
+  "background": {
+    "texture": "guis/blank_background_bigger.png",
+    "srcRect": [0, 0, 256, 256]
+  },
+  "text": {
+    "dialog_title": {
+      "text": {
+        "translate": "gui.crazy_addons.nbt_export_bus"
+      },
+      "position": {
+        "left": 8,
+        "top": 6
+      }
+    }
+  }
+}

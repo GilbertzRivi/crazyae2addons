@@ -1,7 +1,6 @@
 package net.oktawia.crazyae2addons;
 
 import appeng.api.AECapabilities;
-import appeng.api.features.P2PTunnelAttunement;
 import appeng.api.networking.IInWorldGridNodeHost;
 import appeng.api.parts.RegisterPartCapabilitiesEvent;
 import appeng.api.upgrades.Upgrades;
@@ -10,19 +9,27 @@ import appeng.client.render.StaticItemColor;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.init.client.InitScreens;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.TypedDataComponent;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
-import net.neoforged.bus.api.Event;
+import net.minecraft.world.item.Item;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.ModLoader;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.oktawia.crazyae2addons.entities.RRItemP2PTunnel;
+import net.oktawia.crazyae2addons.helpers.ComponentsUtils;
 import net.oktawia.crazyae2addons.registries.RegistryMenus;
 import net.oktawia.crazyae2addons.registries.RegistryPackets;
-import net.oktawia.crazyae2addons.screens.EntityTickerScreen;
-import net.oktawia.crazyae2addons.screens.LimitedPatternProviderScreen;
+import net.oktawia.crazyae2addons.screens.*;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
@@ -40,14 +47,19 @@ import net.oktawia.crazyae2addons.registries.RegistryEntities;
 import net.oktawia.crazyae2addons.registries.RegistryBlocks;
 import net.oktawia.crazyae2addons.registries.RegistryItems;
 import appeng.api.parts.RegisterPartCapabilitiesEventInternal;
-import net.oktawia.crazyae2addons.screens.CraftingCancellerScreen;
 import appeng.core.definitions.AEItems;
+
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @Mod(CrazyAddons.MODID)
 public class CrazyAddons
 {
     public static final String MODID = "crazy_addons";
     private static final Logger LOGGER = LogUtils.getLogger();
+    public static ComponentsUtils componentUtil = new ComponentsUtils();
+    public static String checkmark = "✔";
+    public static String xmark = "✖";
 
     static CrazyAddons INSTANCE;
 
@@ -68,18 +80,16 @@ public class CrazyAddons
         modEventBus.addListener(CrazyAddons::initCapabilities);
         modEventBus.addListener(CrazyAddons::initItemColours);
         modEventBus.addListener(CrazyAddons::initUpgrades);
-        modEventBus.addListener(CrazyAddons::initAttunements);
         modEventBus.addListener(RegistryPackets.INSTANCE::onRegister);
         modEventBus.addListener(this::addCreative);
-    }
 
-    private static void initAttunements(FMLCommonSetupEvent event){
-        P2PTunnelAttunement.registerAttunementTag(RegistryItems.RR_ITEM_P2P_TUNNEL.get());
     }
 
     private static void initUpgrades(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             Upgrades.add(AEItems.SPEED_CARD, RegistryItems.ENTITY_TICKER, 8);
+            Upgrades.add(AEItems.SPEED_CARD, RegistryItems.NBT_EXPORT_BUS, 4);
+            Upgrades.add(AEItems.REDSTONE_CARD, RegistryItems.NBT_EXPORT_BUS, 1);
         });
     }
 
@@ -102,6 +112,18 @@ public class CrazyAddons
                 RegistryMenus.ENTITY_TICKER.get(),
                 EntityTickerScreen::new,
                 "/screens/entity_ticker.json"
+        );
+        InitScreens.register(
+                event,
+                RegistryMenus.NBT_EXPORT_BUS.get(),
+                NBTExportBusScreen::new,
+                "/screens/nbt_export_bus.json"
+        );
+        InitScreens.register(
+                event,
+                RegistryMenus.NBT_LIST_SUBMENU.get(),
+                NBTListSubScreen::new,
+                "/screens/nbt_list_submenu.json"
         );
     }
 
@@ -131,6 +153,12 @@ public class CrazyAddons
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        componentUtil.init(
+                BuiltInRegistries.ITEM.stream().collect(Collectors.toCollection(NonNullList::create)),
+                BuiltInRegistries.DATA_COMPONENT_TYPE.stream().sorted(Comparator.comparing(
+                        component -> component.getClass().toString())
+                ).collect(Collectors.toCollection(NonNullList::create))
+        );
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {

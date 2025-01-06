@@ -46,8 +46,4 @@ public class EntityTickerMenu extends UpgradeableMenu<EntityTicker> {
 
         this.standardDetectAndSendChanges();
     }
-
-    public static final MenuType<EntityTickerMenu> MENU_TYPE = MenuTypeBuilder
-            .create(EntityTickerMenu::new, EntityTicker.class)
-            .build("entity_ticker");
 }

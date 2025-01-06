@@ -12,5 +12,6 @@
   "gui.crazy_addons.entity_ticker": "Entity Ticker",
   "gui.crazy_addons.entity_ticker_info1": "Each card adds 8 to the",
   "gui.crazy_addons.entity_ticker_info2": "machines speed multiplier",
-  "gui.crazy_addons.entity_ticker_enabled": "Enabled"
+  "gui.crazy_addons.entity_ticker_enabled": "Enabled",
+  "gui.crazy_addons.nbt_export_bus": "NBT Export Bus"
 }
