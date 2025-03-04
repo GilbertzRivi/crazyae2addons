@@ -8,6 +8,7 @@ Crazy AE2 Addons is a Minecraft mod that enhances Applied Energistics 2 by intro
 - **Round Robin Item P2P Tunnel**: Enables round-robin item distribution between multiple outputs, between multiple item insertions. When inputting more items, the tunnel evenly splits the stack across all outputs.
 - **Limited Pattern Provider**: You can break a pattern provider by smelting it, then it will have only one slot for patterns.
 - **Block Entity Tickers**: A costly but effective way to significantly speed up machines.
+- **NBT Export Bus**: An export bus that can export items based on their NBT tags.
 
 More features coming soon!
 
@@ -28,8 +29,6 @@ More features coming soon!
 - [ ] **Custom Displays and Visualization Tools**: Prebuilt widgets for players to use in various monitors/displays. Include a custom widget creator for advanced use cases. Add custom widgets to displays or terminals.
 
 - [ ] **Data Guard**: Add a block that monitors the amount of data stored in the system and activates different events based on thresholds. For example, warn players about excessive NBT item storage to increase stability and prevent chunk corruption or save loss.
-
-- [ ] **NBT Export Bus**: Add an export bus that can export items based on their NBT tags.
 
 - [ ] **Conditional Item Transfers**: Enable resource transfers based on predefined and custom-made events. For example, output specific items when a redstone signal is detected.
 
