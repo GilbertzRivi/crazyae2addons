@@ -1,9 +1,16 @@
 {
   "$schema": "schema.json",
-  "includes": ["common/common.json"],
+  "includes": [
+    "common/common.json"
+  ],
   "background": {
     "texture": "guis/blank_background_bigger.png",
-    "srcRect": [0, 0, 256, 256]
+    "srcRect": [
+      0,
+      0,
+      256,
+      256
+    ]
   },
   "text": {
     "dialog_title": {
@@ -14,6 +21,14 @@
         "left": 8,
         "top": 6
       }
+    }
+  },
+  "widgets": {
+    "back": {
+      "left": 210,
+      "top": 240,
+      "width": 30,
+      "height": 15
     }
   }
 }

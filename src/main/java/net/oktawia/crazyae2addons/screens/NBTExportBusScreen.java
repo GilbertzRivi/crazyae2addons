@@ -13,17 +13,21 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.TypedDataComponent;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.oktawia.crazyae2addons.CrazyAddons;
+import net.oktawia.crazyae2addons.Utils;
 import net.oktawia.crazyae2addons.menus.NBTExportBusMenu;
+import org.jline.utils.Log;
 import org.slf4j.Logger;
 import com.mojang.datafixers.util.Pair;
 
@@ -42,7 +46,7 @@ public class NBTExportBusScreen extends UpgradeableScreen<NBTExportBusMenu> {
     private DataComponentPatch loadedNBT;
     private DataComponentMap loadedNBTmap;
     private int currentNBT = 0;
-    private boolean matchMode = true;
+
 
     public NBTExportBusScreen(NBTExportBusMenu menu, Inventory playerInventory, Component title,
                                       ScreenStyle style) {
@@ -59,6 +63,7 @@ public class NBTExportBusScreen extends UpgradeableScreen<NBTExportBusMenu> {
         initialized = false;
         setupGui();
     }
+
 
     @Override
     protected void updateBeforeRender() {
@@ -117,8 +122,9 @@ public class NBTExportBusScreen extends UpgradeableScreen<NBTExportBusMenu> {
             }
         }
     }
-    
+
     private void save(){
+        getMenu().syncComponents();
         DataComponentType<Object> type = (DataComponentType<Object>) CrazyAddons.componentUtil.types.get(currentComp);
         String value = jsonInput.getValue();
         Codec<?> codec = type.codec();
@@ -134,26 +140,30 @@ public class NBTExportBusScreen extends UpgradeableScreen<NBTExportBusMenu> {
             if(result.isSuccess() && result.result().isPresent()){
                 var res = ((Pair<?, ?>) result.result().get()).getFirst();
                 TypedDataComponent<Object> component = new TypedDataComponent<>(type, res);
-                getMenu().getHost().components.addLast(component);
-                getMenu().getHost().components = getMenu().getHost().components.stream()
-                        .distinct().collect(Collectors.toCollection(NonNullList::create));
-                getMenu().getHost().matchMode = matchMode;
+                if (getMenu().getHost().components.size() < 8){
+                    getMenu().getHost().components.addLast(component);
+                    getMenu().getHost().components = getMenu().getHost().components.stream()
+                            .distinct().collect(Collectors.toCollection(NonNullList::create));
+                }
                 getMenu().syncComponents();
             }
         }
     }
 
-    private void updateMatchMode() {
-        if (matchMode){
+    public void updateMatchMode() {
+        getMenu().getHost().matchMode = !getMenu().getHost().matchMode;
+        if (getMenu().getHost().matchMode){
             matchModeButton.setMessage(Component.literal("Match All"));
         }
         else {
             matchModeButton.setMessage(Component.literal("Match Any"));
         }
+        save();
     }
 
     private void setupGui(){
         if (!initialized){
+            getMenu().syncComponentsToClient();
             initialized = true;
             currentNBT = 0;
             currentComp = 0;
@@ -206,11 +216,10 @@ public class NBTExportBusScreen extends UpgradeableScreen<NBTExportBusMenu> {
                 updateNBT();
                 changeButton();
             });
-            matchModeButton = this.widgets.addButton("match_mode", Component.literal("Match All"), () -> {
-                matchMode = !matchMode;
-                updateMatchMode();
-            });
+            matchModeButton = this.widgets.addButton("match_mode",
+                    Component.literal(getMenu().getHost().matchMode ? "Match Any" : "Match All"), this::updateMatchMode);
             this.widgets.addButton("list_filters", Component.literal("Filters"), () -> {getMenu().openSubmenu();});
+            this.widgets.addButton("save", Component.literal("Save"), this::save);
             changeButton();
         }
     }

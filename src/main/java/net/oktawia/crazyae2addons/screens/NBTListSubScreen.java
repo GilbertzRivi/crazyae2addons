@@ -29,6 +29,7 @@ public class NBTListSubScreen extends AEBaseScreen<NBTListSubMenu> {
     private static final Logger LOGGER = LogUtils.getLogger();
     public NBTListSubScreen(NBTListSubMenu menu, Inventory inventory, Component title, ScreenStyle style) {
         super(menu, inventory, title, style);
+        this.widgets.addButton("back", Component.literal("Back"), () -> {getMenu().mainMenuOpener();});
     }
 
     @Override

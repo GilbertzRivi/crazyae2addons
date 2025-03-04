@@ -9,6 +9,7 @@ import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.PriorityMenu;
 import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.locator.MenuLocators;
+import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.TypedDataComponent;
 import net.minecraft.world.entity.player.Inventory;

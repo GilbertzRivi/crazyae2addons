@@ -9,6 +9,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.oktawia.crazyae2addons.menus.NBTExportBusMenu;
+import net.oktawia.crazyae2addons.menus.NBTListSubMenu;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -41,8 +42,8 @@ public record NBTRemoveComponentPacket(TypedDataComponent<?> component) implemen
 
     @Override
     public void handleOnServer(ServerPlayer player) {
-        if (player.containerMenu instanceof NBTExportBusMenu menu){
-            menu.getHost().components.remove(this.component);
+        if (player.containerMenu instanceof NBTListSubMenu menu){
+            menu.host.components.remove(this.component);
         }
     }
 }
