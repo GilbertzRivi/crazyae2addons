@@ -14,6 +14,8 @@ More features coming soon!
 
 ## To-Do
 
+- [ ] Export bus that will export set amount of items, and wait for a signal to do that again
+
 - [ ] **Processing Pattern NBT Ignore Option**: Add a configuration option to allow processing patterns to ignore NBT data for items returned to the network. This would simplify crafting complex items, such as entangled singularities.
 
 - [ ] **Processing Pattern Modifier**: Introduce a pattern modifier that enables players to perform mathematical operations on input/output items in processing patterns (e.g., multiplying all inputs/outputs by `sqrt(2)` or `3`, etc.).
